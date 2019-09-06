@@ -6,7 +6,7 @@ spring:
   #Database
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://zc.happyloves.cn:3306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://192.168.1.115:13306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
     username: shuma
     password: shuma123
     hikari:
