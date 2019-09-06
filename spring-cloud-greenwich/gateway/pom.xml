@@ -8,21 +8,12 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.happyloves.zc.service</groupId>
-    <artifactId>service</artifactId>
+    <groupId>com.happyloves.zc.gateway</groupId>
+    <artifactId>gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service</name>
-    <!--    <description>Spring Cloud Greenwich project for Spring Boot</description>-->
+    <name>center</name>
+<!--    <description>Spring Cloud Greenwich project for Spring Boot</description>-->
     <modules>
-        <module>common</module>
-        <module>goods</module>
-        <module>account</module>
+        <module>gateway-route</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-    </dependencies>
 </project>

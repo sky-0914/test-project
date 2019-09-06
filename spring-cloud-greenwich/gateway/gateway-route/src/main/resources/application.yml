@@ -1,47 +1,25 @@
 server:
-  port: 0
-#  servlet:
-#    context-path: '/goods'
+  port: 8888
 spring:
   application:
-    name: goods
-  #Database
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://zc.happyloves.cn:3306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
-    username: shuma
-    password: shuma123
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 15
-      connection-test-query: SELECT 1
-      max-lifetime: 1800000
-      connection-timeout: 30000
-      pool-name: DatebookHikariCP
-  #JPA
-  jpa:
-    database: MYSQL
-    hibernate:
-      ddl-auto: update
-      naming:
-        #  Hibernate到5.1废除了
-        #  strategy: org.hibernate.cfg.ImprovedNamingStrategy
-        #在进行领域映射时,首字母小写，大写字母变为下划线加小写
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-        #不做修改，直接映射org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加这句则默认为myisam引擎,myisam不能加索引
-    show-sql: true
-    open-in-view: true
-  #JSON
-  jackson:
-    #时区
-    time-zone: GMT+8
-    #时间格式
-    date-format: yyyy-MM-dd HH:mm:ss
+    name: gateway-route
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #表明gateway开启服务注册和发现的功能，并且spring cloud gateway自动根据服务发现为每一个服务创建了一个router，# 这个router将以服务名开头的请求路径转发到对应的服务
+          lowerCaseServiceId: true #将请求路径上的服务名配置为小写（因为服务注册的时候，向注册中心注册时将服务名转成大写的了,比如以/service-hi/*的请求路径被路由转发到服务名为service-hi的服务上
+#      routes:
+#        - id: test-id
+#          uri: lb://client-manage
+#          order: -1
+#          predicates:
+#            - Path=/api2/**
+#          filters:
+#            - StripPrefix=1
 eureka:
   instance:
-#    ip-address: #指定ip地址
+    #    ip-address: #指定ip地址
     # 是否以IP注册到Eureka Server上，如果false则不是IP而是服务器名称
     # 但我设置了false，eureka主页仍显示192.168.100.16:client-microservice:8010
     preferIpAddress: true # 将IP注册到Eureka Server上，而如果不配置就是机器的主机名。默认false。应该始终设置为true。如果基于Docker等容器的部署，容器会生成一个随机的主机名，此时DNS不存在该名，无法解析 - John Carnell
@@ -54,12 +32,6 @@ eureka:
     # 端点配置。若配置了context-path，actuator的监控端点会增加前缀，此时eureka也需要相应增加
     #status-page-url-path: ${server.servlet.context-path}/actuator/info
     #health-check-url-path: ${server.servlet.context-path}/actuator/health
-
-    #    Eureka 的元数据
-    metadata-map:
-      zc-data: Current services are commodity services  # 不会影响客户端
-      zone: ABD               # Eureka可以理解的元数据，可以影响客户端
-#    appname: AAAAA            # 填坑 Swagger：配置和spring.application.name 冲突
   client:
     # eureka服务的位置，如配置错误，则：Cannot execute request on any known server
     # 详见：com.netflix.discovery.endpoint.EndpointUtils

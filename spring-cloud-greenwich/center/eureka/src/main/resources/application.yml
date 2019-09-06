@@ -1,35 +1,14 @@
 spring:
   profiles:
-    active: cluster
+    active: dev
   application:
     name: eureka
 #单机
 server:
   port: 8761
-#eureka:
-#  instance:
-#    prefer-ip-address: true
-#    leaseRenewalIntervalInSeconds:  5 # 心跳间隔，5秒
-#    leaseExpirationDurationInSeconds: 10  # 没有心跳的淘汰时间，10秒
-#    #    Eureka 的元数据
-#    metadata-map:
-#      zc-data: Current services are Eureka  # 不会影响客户端
-#      zone: ABD               # Eureka可以理解的元数据，可以影响客户端
-#    appname: AAAAA            # 填坑 Swagger：配置和spring.application.name 冲突
-#  client:
-#    register-with-eureka: true #值为false意味着自身仅作为服务器，不作为客户端 指示此实例是否应将其信息注册到eureka服务器以供其他服务发现，默认为false，true:就可以看到元数据http://localhost:8761/eureka/apps
-#    fetch-registry: false       #值为false意味着无需注册自身 客户端是否获取eureka服务器注册表上的注册信息，默认为true
-#    service-url:
-#      default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/ #应用的主机名称
-#  server:
-#    renewal-percent-threshold: 0.49 # 如果您只想在demo / dev环境中部署，您可以将eureka.server.renewalPercentThreshold设置为0.49，因此当您单独启动Eureka服务器时，阈值将为0。
-#    enable-self-preservation: false # 中小规模下，自我保护模式坑比好处多，所以关闭它
-#    ## eureka.server.renewalThresholdUpdateIntervalMs=120000  # 心跳阈值计算周期，如果开启自我保护模式，可以改一下这个配置
-#    useReadOnlyResponseCache: false #禁用readOnlyCacheMap
-#    eviction-interval-timerInMs:  5000  # 主动失效检测间隔,配置成5秒,清理间隔（单位毫秒，默认是60*1000）
-
+eureka:
   datacenter: cloud           # 修改Eureka监控页面的System Status Data center
-  environment: uat            # 修改Eureka监控页面的System Status Environment
+  environment: test            # 修改Eureka监控页面的System Status Environment
 # 显示所有健康状态
 management:
   endpoint.health.show-details: always

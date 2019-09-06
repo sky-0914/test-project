@@ -1,5 +1,6 @@
 package com.happyloves.zc.service.goods.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "goods")
 @Data
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Goods implements Serializable {
     private static final long serialVersionUID = 6006595825558041844L;
     @Id
