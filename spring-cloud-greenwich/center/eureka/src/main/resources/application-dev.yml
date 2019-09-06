@@ -14,7 +14,7 @@ eureka:
       enabled: true
     # 默认情况下，eureka server同时也是eureka client，用于相互注册形成高可用eureka服务。
     # 单点时，如果registerWithEureka配置为true，则eureka server会报错Cannot execute request on any known server
-    registerWithEureka: true # 是否注册到eureka服务，默认为true，当前已为eureka server，且单点eureka，故配置为false
+    registerWithEureka: false # 是否注册到eureka服务，默认为true，当前已为eureka server，且单点eureka，故配置为false
     fetchRegistry: false # eureka之间如果网络不稳定，客户端一般也会缓存了注册列表，因此eureka服务可以不缓存，我觉得更能确保eureka之间的一致。
     serviceUrl:
       # registerWithEureka关闭后，defaultZone没有配置的必要。如果打开，即使配置为本机一样报错。
