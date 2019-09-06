@@ -1,0 +1,61 @@
+server:
+  port: 0
+spring:
+  application:
+    name: goods
+  #Database
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://zc.happyloves.cn:3306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: shuma
+    password: shuma123
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      connection-test-query: SELECT 1
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      pool-name: DatebookHikariCP
+  #JPA
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+      naming:
+        #  Hibernate到5.1废除了
+        #  strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        #在进行领域映射时,首字母小写，大写字母变为下划线加小写
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        #不做修改，直接映射org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加这句则默认为myisam引擎,myisam不能加索引
+    show-sql: true
+    open-in-view: true
+  #JSON
+  jackson:
+    #时区
+    time-zone: GMT+8
+    #时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+eureka:
+  instance:
+#    ip-address: #指定ip地址
+    prefer-ip-address: true #将IP注册到Eureka Server上，而如果不配置就是机器的主机名。${random.int}${server.port}
+    # SpringCloud体系里的，服务实体向eureka注册时，注册名默认是“IP名:应用名:应用端口名”${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${random.int}}
+    # 如果服务名，ip，端口都一致的话，eureka只显示一个服务
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${random.int[10000,99999]}}@project.version@ #SpringCloud 2.0 已经改成 ${spring.cloud.client.ip-address} 了，于是修改,@project.version@加上版本号
+    leaseRenewalIntervalInSeconds:  5 # 心跳间隔，5秒
+    leaseExpirationDurationInSeconds: 10  # 没有心跳的淘汰时间，10秒
+    #    Eureka 的元数据
+    metadata-map:
+      zc-data: Current services are commodity services  # 不会影响客户端
+      zone: ABD               # Eureka可以理解的元数据，可以影响客户端
+#    appname: AAAAA            # 填坑 Swagger：配置和spring.application.name 冲突
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/ #应用的主机名称
+
+# 显示所有健康状态
+management:
+  endpoint.health.show-details: always
+  endpoints.web.exposure.include: "*"
