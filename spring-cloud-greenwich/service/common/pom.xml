@@ -6,12 +6,13 @@
         <groupId>com.happyloves.zc.service</groupId>
         <artifactId>service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
-    <groupId>com.happyloves.zc.service.common</groupId>
+<!--    <groupId>com.happyloves.zc.service.common</groupId>-->
     <artifactId>common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>common</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>

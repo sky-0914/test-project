@@ -3,15 +3,23 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <properties resource="config.properties"/>
+    <properties resource="generator/config.properties"/>
 
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
+        <!-- 生成的Java文件的编码-->
+        <property name="javaFileEncoding" value="UTF-8"></property >
+        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定-->
+        <property name="autoDelimitKeywords" value="false"></property >
 
+        <!--支持序列化-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
             <property name="caseSensitive" value="true"/>
+            <property name="lombok" value="Data"/><!--支持lombok Getter,Setter,ToString,Data-->
         </plugin>
 
         <jdbcConnection driverClass="${jdbc.driverClass}"
@@ -20,17 +28,18 @@
                         password="${jdbc.password}">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.happyloves.zc.model"
+        <!--        实体类-->
+        <javaModelGenerator targetPackage="com.happyloves.zc.service.order.model.entity.${modelName}"
                             targetProject="src/main/java"/>
-
-        <sqlMapGenerator targetPackage="mapper"
+        <!--        mapper.xml-->
+        <sqlMapGenerator targetPackage="mapper.${modelName}"
                          targetProject="src/main/resources"/>
-
-        <javaClientGenerator targetPackage="com.happyloves.zc.mapper"
+        <!--        mapper接口-->
+        <javaClientGenerator targetPackage="com.happyloves.zc.service.order.dao.mapper.${modelName}"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
-
-        <table tableName="order">
+        <!--        为哪张表生成-->
+        <table tableName="${tableName}">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>

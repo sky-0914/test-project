@@ -6,12 +6,13 @@
         <groupId>com.happyloves.zc</groupId>
         <artifactId>spring-cloud-greenwich</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
     <groupId>com.happyloves.zc.gateway</groupId>
     <artifactId>gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>center</name>
+    <packaging>pom</packaging>
 <!--    <description>Spring Cloud Greenwich project for Spring Boot</description>-->
     <modules>
         <module>gateway-route</module>

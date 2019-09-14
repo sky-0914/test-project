@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.happyloves.zc.service.order.dao.mapper.order.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.happyloves.zc.service.order.model.entity.order.Order">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="unit_price" jdbcType="DOUBLE" property="unitPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+  </resultMap>
+</mapper>

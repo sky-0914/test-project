@@ -12,6 +12,7 @@
     <artifactId>service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>service</name>
+    <packaging>pom</packaging>
     <!--    <description>Spring Cloud Greenwich project for Spring Boot</description>-->
     <modules>
         <module>common</module>
@@ -21,9 +22,6 @@
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+
     </dependencies>
 </project>

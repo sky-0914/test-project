@@ -14,9 +14,13 @@
     <name>order</name>
     <description>Demo project for Spring Boot</description>
 
+<!--    <properties>-->
+<!--        <package>com.happyloves.zc.model.entity</package>-->
+<!--    </properties>-->
+
     <dependencies>
         <dependency>
-            <groupId>com.happyloves.zc.service.common</groupId>
+            <groupId>com.happyloves.zc.service</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -24,6 +28,10 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!-- 通用Mapper -->
         <dependency>
@@ -55,7 +63,7 @@
                 <version>1.3.6</version>
                 <configuration>
                     <configurationFile>
-                        ${basedir}/src/main/resources/generatorConfig.xml
+                        ${basedir}/src/main/resources/generator/generatorConfig.xml
                     </configurationFile>
                     <overwrite>true</overwrite>
                     <verbose>true</verbose>
@@ -64,12 +72,12 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-<!--                        <version>5.1.29</version>-->
+                        <version>8.0.17</version>
                     </dependency>
                     <dependency>
                         <groupId>tk.mybatis</groupId>
                         <artifactId>mapper</artifactId>
-                        <version>4.0.0</version>
+                        <version>4.1.5</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import tk.mybatis.spring.annotation.MapperScan;
 
-@MapperScan(basePackages = "com.happyloves.zc")
+@MapperScan("com.happyloves.zc.service.order")
 //@EnableEurekaClient
 @EnableDiscoveryClient
 @SpringBootApplication
