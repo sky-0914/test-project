@@ -5,8 +5,8 @@ spring:
     name: account
   #Database
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.115:13306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver # mysql jar包版本5.X用没有CJ的 com.mysql.jdbc.Driver
+    url: jdbc:mysql://zc.happyloves.cn:3306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
     username: shuma
     password: shuma123
     hikari:
@@ -41,14 +41,14 @@ eureka:
   instance:
     hostname: localhost
     prefer-ip-address: true #IP地址
-#    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    #    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
     leaseRenewalIntervalInSeconds:  5 # 心跳间隔，5秒
     leaseExpirationDurationInSeconds: 10  # 没有心跳的淘汰时间，10秒
     #    Eureka 的元数据
     metadata-map:
       zc-data: Current services are account services  # 不会影响客户端
       zone: ABD               # Eureka可以理解的元数据，可以影响客户端
-#    appname: AAAAA            # 填坑 Swagger：配置和spring.application.name 冲突
+  #    appname: AAAAA            # 填坑 Swagger：配置和spring.application.name 冲突
   client:
     service-url:
       default-zone: http://localhost:8761/eureka/ #应用的主机名称
