@@ -14,8 +14,8 @@ import java.util.List;
  * @Description: http://www.imooc.com/article/287865 Intellij IDEA中Mybatis Mapper自动注入警告的6种解决方案
  * @RequiredArgsConstructor： 会生成一个包含常量final，和标识了NotNull的变量 的构造方法。生成的构造方法是private，如何想要对外提供使用可以使用staticName选项生成一个static方法。
  */
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class OrderService {
 
     private final OrderMapper mapper;
@@ -30,7 +30,6 @@ public class OrderService {
 
 //    public Order save(){
 //        mapper.insert()
-//
 //    }
 
 }

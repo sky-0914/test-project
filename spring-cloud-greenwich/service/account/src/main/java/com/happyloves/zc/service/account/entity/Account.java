@@ -11,7 +11,9 @@ import java.io.Serializable;
  * @Description:
  */
 @Entity
-@Table(name = "account")
+@Table(name = "account", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name"})
+})
 @Data
 public class Account implements Serializable {
     private static final long serialVersionUID = -8284769269367428759L;

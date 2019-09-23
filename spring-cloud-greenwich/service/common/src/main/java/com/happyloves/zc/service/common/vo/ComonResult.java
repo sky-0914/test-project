@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public final class ComonResult<T> {
     private int code = 0;
+    private boolean succeed = true;
     private String errorMsg;
     private T resultBody;
 

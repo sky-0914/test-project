@@ -23,12 +23,12 @@ public class GoodsController {
     @Autowired
     private GoodsJPA jpa;
 
-    @GetMapping("/goods")
+    @GetMapping("/")
     public List<Goods> getAll() {
         return jpa.findAll();
     }
 
-    @GetMapping("/goods/{id}")
+    @GetMapping("/{id}")
     public Goods getOne(@PathVariable int id) {
         return jpa.getOne(id);
     }

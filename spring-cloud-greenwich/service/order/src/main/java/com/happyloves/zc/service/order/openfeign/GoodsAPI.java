@@ -1,4 +1,4 @@
-package com.happyloves.zc.service.account.openfeign;
+package com.happyloves.zc.service.order.openfeign;
 
 import com.happyloves.zc.service.common.vo.GoodsVO;
 import org.springframework.cloud.openfeign.FeignClient;

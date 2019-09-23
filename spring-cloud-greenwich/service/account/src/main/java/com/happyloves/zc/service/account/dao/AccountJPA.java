@@ -15,6 +15,13 @@ import javax.transaction.Transactional;
  */
 public interface AccountJPA extends JpaRepository<Account, Integer> {
 
+    /**
+     * 扣款
+     *
+     * @param id
+     * @param price
+     * @return
+     */
     @Transactional
     @Modifying
     @Query("UPDATE Account a SET a.balance = a.balance - :price WHERE a.id = :id AND a.balance >= :price")

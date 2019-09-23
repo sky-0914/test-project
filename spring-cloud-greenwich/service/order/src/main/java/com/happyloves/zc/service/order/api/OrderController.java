@@ -1,6 +1,7 @@
 package com.happyloves.zc.service.order.api;
 
 import com.happyloves.zc.service.order.model.entity.order.Order;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,14 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2019/9/14 19:30
  * @Description:
  */
-@RequestMapping("/order")
+@RequestMapping("/")
 @RestController
 public class OrderController {
 
+    @PostMapping("/{account}/{goodsId}")
+    public Order orders(@PathVariable int accountId, @PathVariable int goodsId) {
 
-
-    @PostMapping("/order/{goodsId}")
-    public Order placeTheOrder(){
-
+        return null;
     }
 }
