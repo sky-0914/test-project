@@ -1,4 +1,4 @@
-package com.happyloves.zc.service.account.api;
+package com.happyloves.zc.service.common.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,6 +22,12 @@ public class ExceptionController {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public String apiExceptionHandler(MethodArgumentNotValidException ex) {
+        log.error("ApiException 异常抛出：{}", ex);
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String apiExceptionHandler(Exception ex) {
         log.error("ApiException 异常抛出：{}", ex);
         return ex.getMessage();
     }

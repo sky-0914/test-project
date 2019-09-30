@@ -34,10 +34,11 @@ public class GoodsController {
     }
 
     @PutMapping("/inventory/{id}")
-    public List<Goods> inventory(@PathVariable int id, int count) {
+    public Goods inventory(@PathVariable int id, int count) throws Exception {
         int i = jpa.inventory(id, count);
-        jpa.inventory(id, count);
-        log.info("inventory i: {}", i);
-        return jpa.findAll();
+        if (i == 0) {
+            throw new Exception("库存不足！");
+        }
+        return jpa.getOne(id);
     }
 }

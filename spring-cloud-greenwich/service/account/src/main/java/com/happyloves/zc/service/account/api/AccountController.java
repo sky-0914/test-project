@@ -4,7 +4,13 @@ import com.happyloves.zc.service.account.dao.AccountJPA;
 import com.happyloves.zc.service.account.entity.Account;
 import com.happyloves.zc.service.account.openfeign.GoodsAPI;
 import com.happyloves.zc.service.common.vo.AccountVO;
+import com.happyloves.zc.service.common.vo.AccountVO.LoginRequest;
+import com.happyloves.zc.service.common.vo.ApiMessage;
 import com.happyloves.zc.service.common.vo.GoodsVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
@@ -21,8 +27,10 @@ import java.util.Optional;
  * @Date 2019/9/5 23:19
  * @Description:
  */
+@Api(value = "Account-账户服务", tags = {"账户服务"}) //@Api注解放在类上面，这里的value是没用的，tags表示该controller的介绍。
 @Slf4j
 @RestController
+//@RequestMapping("/account")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountController {
 
@@ -35,14 +43,18 @@ public class AccountController {
      * @param req
      * @return
      */
+    @ApiOperation(value = "注册保存", notes = "注册保存新账户并返回所有账户信息")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "req", required = true, value = "登陆注册", paramType = "body", dataType = "LoginRequest"),
+    })
     @PostMapping("/")
-    public AccountVO save(@Valid @RequestBody AccountVO.LoginRequest req) {
+    public ApiMessage<AccountVO> save(@Valid @RequestBody LoginRequest req) {
         Account account = new Account();
         BeanUtils.copyProperties(req, account);
         var a = jpa.save(account);
         AccountVO vo = new AccountVO();
         BeanUtils.copyProperties(a, vo);
-        return vo;
+        return new ApiMessage<>(vo);
     }
 
     /**
@@ -61,7 +73,11 @@ public class AccountController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    @ApiOperation(value = "获取用户信息", notes = "获取某一个用户信息")
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "path", dataType = "integer"),
+    })
+    @GetMapping("/account/{id}")
     public AccountVO getOne(@PathVariable int id) {
         Optional<Account> byId = jpa.findById(id);
         if (byId.isPresent()) {
@@ -81,9 +97,12 @@ public class AccountController {
      * @return
      */
     @PostMapping("/payment/{accountId}/{goodsId}")
-    public Account payment(@PathVariable int accountId, @PathVariable int goodsId) {
+    public Account payment(@PathVariable int accountId, @PathVariable int goodsId) throws Exception {
         GoodsVO goodsVO = goodsAPI.getOne(goodsId);
         int pay = jpa.pay(accountId, goodsVO.getPrice());
+        if (pay == 0) {
+            throw new Exception("扣款失败！");
+        }
         return jpa.findById(accountId).orElse(null);
     }
 

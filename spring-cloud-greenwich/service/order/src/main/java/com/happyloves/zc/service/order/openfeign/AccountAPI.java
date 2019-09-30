@@ -1,6 +1,6 @@
 package com.happyloves.zc.service.order.openfeign;
 
-import com.happyloves.zc.service.common.vo.GoodsVO;
+import com.happyloves.zc.service.common.vo.AccountVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @Date 2019/9/6 19:21
  * @Description:
  */
-@FeignClient(name = "goods")
-public interface GoodsAPI {
+@FeignClient(name = "account")
+public interface AccountAPI {
 
     @GetMapping("/{id}")
-    GoodsVO getOne(@PathVariable int id);
+    AccountVO getOne(@PathVariable int id);
 }
