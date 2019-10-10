@@ -57,7 +57,7 @@ eureka:
 
     #    Eureka 的元数据
     metadata-map:
-      zc-data: Current services are commodity services  # 不会影响客户端
+      zc-data: Current services are goods services  # 不会影响客户端
       zone: ABD               # Eureka可以理解的元数据，可以影响客户端
 #    appname: AAAAA            # 填坑 Swagger：配置和spring.application.name 冲突
   client:

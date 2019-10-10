@@ -60,3 +60,13 @@ feign:
 management:
   endpoint.health.show-details: always
   endpoints.web.exposure.include: "*"
+
+# Ribbon 负载均衡算法-细粒度配置
+goods:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 配置文件配置负载均衡算法-我这里使用的是自定义的Ribbon的负载均衡算法，优先级：配置（不会影响其他服务）>(大于) 硬编码（类得写在SpringBoot启动类包外，不然会影响其他服务），默认
+# Ribbon饥饿加载
+ribbon:
+  eager-load:
+    enabled: true
+    clients: goods,order

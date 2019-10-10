@@ -1,5 +1,7 @@
 package com.happyloves.zc.service.common.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -29,17 +31,27 @@ import java.io.Serializable;
  * @NotEmpty 被注释的字符串必须非空
  * @Range 被注释的元素必须在合适的范围内
  */
+@ApiModel("账户实体")
 @Data
 public class AccountVO extends BaseVO implements Serializable {
     private static final long serialVersionUID = 4601009988055817869L;
+    @ApiModelProperty(value = "名称",position = 1)
+    @NotBlank(message = "名称不能为空")
     private String name;
+    @ApiModelProperty(value = "年龄",position = 1)
+    @Min(value = 1, message = "年龄不能小于等于0")
+    @Max(value = 200, message = "年龄不能大于200")
     private int age;
+    @ApiModelProperty(value = "余额",position = 1)
     private int balance;
 
+    @ApiModel("登陆实体参数")
     @Data
     public static class LoginRequest {
+        @ApiModelProperty(value = "名称",position = 1)
         @NotBlank(message = "名称不能为空")
         private String name;
+        @ApiModelProperty(value = "年龄",position = 2)
         @Min(value = 1, message = "年龄不能小于等于0")
         @Max(value = 200, message = "年龄不能大于200")
         private int age;
