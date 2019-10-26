@@ -1,5 +1,6 @@
 package com.happyloves.zc.service.account;
 
+import com.happyloves.zc.service.account.config.GoodsFeignConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -9,7 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 
-@EnableFeignClients
+//@EnableFeignClients(defaultConfiguration = GoodsFeignConfig.class)//全局配置-代码实现
+@EnableFeignClients//全局配置-配置属性实现
 //@EnableEurekaClient
 @EnableDiscoveryClient
 @SpringBootApplication

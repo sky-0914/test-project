@@ -55,6 +55,16 @@ eureka:
 feign:
   hystrix:
     enabled: true #全局禁用或开启 feign默认hystrix是false不开启的
+  # 配置属性实现日志级别
+  client:
+    config:
+      #如果实现细粒度，就是调用的微服务名称,如果是全局配置就是default
+      default:
+        loggerLevel: FULL
+  httpclient:
+    enabled: true
+    max-connections: 200
+    max-connections-per-route: 50
 
 # 显示所有健康状态
 management:
@@ -70,3 +80,14 @@ ribbon:
   eager-load:
     enabled: true
     clients: goods,order
+
+logging:
+  level:
+    com.happyloves.zc: DEBUG
+#    com:
+#      happyloves:
+#        zc:
+#          service:
+#            account:
+#              openfeign:
+#                GoodsAPI: DEBUG
