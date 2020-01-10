@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket示例</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://cdn.bootcss.com/sockjs-client/1.3.0/sockjs.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<input id="username" type="text"/>
+<button onclick="connect()">连接</button>
+<hr/>
+<!--<input id="text" type="text"/>-->
+<button onclick="send()">发送消息</button>
+<hr/>
+<button onclick="closeWebSocket()">关闭WebSocket连接</button>
+<hr/>
+<div id="message"></div>
+</body>
+
+<script type="text/javascript">
+    var request = JSON.stringify({'name': '张三', '': 10, 'message': 'TEST'});
+    var stomp;
+
+    function connect() {
+        var socket = new SockJS('http://localhost:8080/ws-stomp');
+        stomp = Stomp.over(socket);
+        let username = document.getElementById('username').value;
+        stomp.connect({"username": username}, function (frame) {
+            console.log('======Connected: ' + frame);
+            stomp.subscribe('/user/receive/test2', function (message) {
+                console.log("=========" + message);
+                document.getElementById('message').innerHTML += message + '<br/>';
+            });
+
+        }, function (frame) {
+            console.log('error');
+        });
+    };
+
+    //关闭连接
+    function closeWebSocket() {
+        stomp.close();
+    }
+
+    //发送消息
+    function send() {
+        // var message = document.getElementById('text').value;
+        stomp.send('/send/message4', {}, request);
+    }
+</script>
+</html>

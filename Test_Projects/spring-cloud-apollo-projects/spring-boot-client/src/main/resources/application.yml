@@ -1,0 +1,37 @@
+## app.id 是Apollo的应用程序ID
+#app:
+#  id: test1
+## 注册到Apollo的ConfigService上的Eureka上，然后在从上面获取配置环境的地址去拉去配置属性，如果Client是在外网访问的话，那么拉去的ConfigServer的地址是内网地址，拉去不到，所以需要改ConfigServer的ip hostname，建议部署在内网地址，尽量减少更改配置
+## apollo.meta aollo-core模块apollo-env.properties配置文件
+## 表示需要从哪个环境的配置中心去获取配置属性，一遍建议直接配置在服务器上，服务器一般不会随便改动环境（DEV开发环境，UAT测试环境，PROD生产环境）
+## /opt/data/{app.id}/config-cache 这个是拉去到的配置属性缓存在本地
+#apollo:
+#  meta: http://47.96.119.175:8080/
+#server:
+#  port: 8888
+
+## 与配置中心的AppId一致
+#app:
+#  id: cluster-api
+#  # 默认情况下meta server和config service是部署在同一个JVM进程
+#apollo:
+##  meta: http://192.168.1.71:18080/
+#  meta: http://192.168.1.71:18080/
+#  #apollo.cacheDir=/var/run/apollo-cache
+#  # 集成到Spring Boot
+#  bootstrap:
+#    enabled: true
+#    namespaces: Cluster.defalut
+
+# 与配置中心的AppId一致
+app:
+  id: cluster-api
+  # 默认情况下meta server和config service是部署在同一个JVM进程
+apollo:
+  #  meta: http://192.168.1.71:18080/
+  meta: http://192.168.50.217:8080
+  #apollo.cacheDir=/var/run/apollo-cache
+  # 集成到Spring Boot
+  bootstrap:
+    enabled: true
+    namespaces: Clister.defalut

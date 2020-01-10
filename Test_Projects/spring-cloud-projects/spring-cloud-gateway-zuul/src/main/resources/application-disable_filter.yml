@@ -1,0 +1,5 @@
+#  如果要禁用其中一个，请设置zuul.<SimpleClassName>.<filterType>.disable=true
+zuul:
+  SendResponseFilter:
+    post:
+      disable: true

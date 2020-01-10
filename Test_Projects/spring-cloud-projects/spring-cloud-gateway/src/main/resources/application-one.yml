@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: server-1
+        uri: lb://server-1 #uri:lb表示从注册中心订阅服务。
+        predicates:
+        - Path=/server/**

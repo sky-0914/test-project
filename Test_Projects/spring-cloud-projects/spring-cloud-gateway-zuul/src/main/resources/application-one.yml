@@ -1,0 +1,6 @@
+# 为指定服务指定路径，起别名
+zuul:
+  routes:
+    server-1: /s-1/** # 给服务起别名
+#  ignored-services: "*" #粗粒度忽略-这样配置忽略其他所有的服务代理。如果想指定服务代理，就 ignored-services: servser-1,server-2
+#  ignoredPatterns: /**/admin/** #细粒度忽略-这样配置忽略请求url中有带/admin/的url

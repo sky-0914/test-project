@@ -1,0 +1,19 @@
+# Admin Server
+server:
+#  port: ${PORT:0}
+  port: 8080
+spring:
+  application:
+    name: spring-boot-admin-server #建议小写 服务名称Service-ID
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

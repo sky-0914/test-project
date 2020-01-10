@@ -1,0 +1,19 @@
+spring:
+  redis:
+    database: 1
+    host: 192.168.1.32
+    port: 6379
+    password:
+    timeout: 5000 #Springboot2.0 不能设置为0
+  session:
+    store-type: redis #指定redis实现spring session
+    timeout: 60 # Session 过期时间，单位s
+    redis:
+      flush-mode: immediate # Sessions 刷新模式
+      namespace: spring-session # Namespace for keys used to store sessions.
+#    lettuce:
+#      pool:
+#        max-active: 50
+#        max-wait: -1
+#        max-idle: 8
+#        min-idle: 0

@@ -1,0 +1,22 @@
+# Admin Client
+server:
+#  port: ${PORT:0}
+  port: 8081
+spring:
+  application:
+    name: spring-boot-admin-client #建议小写 服务名称Service-ID
+#  这边写Admin Server端地址，要注册的Spring Boot Admin Server的URL。
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

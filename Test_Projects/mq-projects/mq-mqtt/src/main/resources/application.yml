@@ -1,0 +1,38 @@
+#MQTT配置信息
+#MQTT-用户名
+spring:
+  mqtt:
+    username: guest
+  #MQTT-密码
+    password: guest
+  #MQTT-服务器连接地址，如果有多个，用逗号隔开，如：tcp://127.0.0.1:61613，tcp://192.168.2.133:61613
+    url:  tcp://192.168.1.32:1883
+  #MQTT-连接服务器默认客户端ID
+    client:
+      id: mqttId
+  #MQTT-默认的消息推送主题，实际可在调用接口时指定
+    default:
+      topic:  topic
+  #连接超时
+    completionTimeout:  3000
+
+## MQTT配置
+mqtt:
+  #MQTT-用户名
+  username: guest
+  #MQTT-密码
+  password: guest
+  #MQTT-服务器连接地址
+  url: tcp://192.168.1.32:1883
+  #MQTT-连接服务器默认客户端ID
+  clientId: mqttId
+  #MQTT-默认的消息推送主题，实际可在调用接口时指定
+  defaultTopic: topic
+  #MQTT-心跳
+  keepAliveInterval: 60
+  #MQTT-自动重连
+  automaticReconnect: true
+  #MQTT-清除session
+  cleanSession: false
+  #MQTT-超时连接
+  completionTimeout: 30

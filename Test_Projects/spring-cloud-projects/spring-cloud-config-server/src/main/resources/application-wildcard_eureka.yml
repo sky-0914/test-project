@@ -1,0 +1,26 @@
+# 通配符
+server:
+  port: 60001
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/sky-0914/{application} # 仓库名称用上通配符{}，这样就一个微服务对应一个Git仓库，保证微服务的名称和Git仓库的名称有一定的对应关系
+
+  application:
+    name: config-server-1 #建议小写
+# Eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  #      defaultZone: http://user:password123@localhost:8761/eureka/ #2.1.0无法注册到Eureka中
+  #    healthcheck:
+  #      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+  instance:
+    prefer-ip-address: true #IP地址
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+#    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+#    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）

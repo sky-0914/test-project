@@ -1,0 +1,1 @@
+# 可以使用提供serviceId路径和路线之间的约定regexmapper。它使用正则表达式命名组从中提取变量serviceId并将其注入路由模式

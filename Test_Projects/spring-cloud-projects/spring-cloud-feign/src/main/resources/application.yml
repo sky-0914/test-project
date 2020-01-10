@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: feign-1
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+  zipkin:
+    base-url: http://192.168.1.70:9411/ # 指定了 Zipkin 服务器的地址
+server:
+  port: 30001
+# Eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true #IP地址
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+#    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+#    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）
+ribbon:
+  serverList-refresh-interval:  2000  # 如果你采用Ribbon来访问服务，那么这里会有个缓存（他的数据来源是本地Eureka Client缓存），他由ribbon. ServerListRefreshInterval控制，默认30秒， 改成2秒
+
+#ribbon:
+#  eureka:
+#    enabled: false # 在Ribbon中禁用Eureka使用
+server-1: # 服务名称 Service-ID
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #  配置文件-自定义的Ribbon的负载均衡算法，优先级：配置（不会影响其他服务），硬编码（类得写在SpringBoot启动类包外，不然会影响其他服务），默认
+#    listOfServers: localhost:10001 #  如何使用Ribbon不使用Eureka
+
+#  Feign日志记录仅响应DEBUG级别。
+logging:
+  level:
+    com.spring.cloud.feignclient: DEBUG
+
+feign:
+  hystrix:
+    enabled: true #全局禁用或开启 feign默认hystrix是false不开启的
+  # 启用 okhttp 关闭默认 httpclient
+  httpclient:
+    enabled: false #关闭httpclient
+    # 配置连接池
+    max-connections: 200 #feign的最大连接数
+    max-connections-per-route: 50 #fegin单个路径的最大连接数
+  okhttp:
+    enabled: true
+  # 请求与响应的压缩以提高通信效率
+  compression:
+    request:
+      enabled: true
+      min-request-size: 2048
+      mime-types: text/xml,application/xml,application/json
+    response:
+      enabled: true
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+# 显示所有健康状态
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

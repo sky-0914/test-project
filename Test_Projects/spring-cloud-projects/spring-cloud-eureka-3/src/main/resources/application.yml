@@ -1,0 +1,14 @@
+#Eureka高可用 注意：不能使用localhost，要使用service-center-1之类的域名，通过host映射到127.0.0.1；
+spring:
+  application:
+    name: eureka
+server:
+  port: 8763
+eureka:
+  instance:
+    hostname: peer3
+  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+    service-url:
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/

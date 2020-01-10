@@ -1,0 +1,16 @@
+#这样配置必须在YML中配置，否则无效
+zuul:
+  #  ignoredHeaders: #全局值
+  #  ignoreSecurityHeaders: false # SpringSecurityHeaders 默认值为true
+  routes:
+    first: #
+      path: /first/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization #忽略请求头
+      url: http://first.example.com #url转发
+    third:
+      path: /third/**
+      sensitiveHeaders: # 空的表示发送所有请求头
+      url: forward:/3rd # 本地的转发
+    legacy: #其余的路径
+      path: /**
+      url: http://legacy.example.com

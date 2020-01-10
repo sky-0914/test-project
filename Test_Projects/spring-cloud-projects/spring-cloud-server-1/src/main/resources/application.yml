@@ -1,0 +1,56 @@
+server:
+  port: 10001
+spring:
+  application:
+    name: server-1 #建议小写 服务名称Service-ID
+  profiles:
+#    active: remotely
+   active: dev
+  # active: dev_zc
+  #JPA
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+      naming:
+        #  Hibernate到5.1废除了
+        #  strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        #在进行领域映射时,首字母小写，大写字母变为下划线加小写
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        #不做修改，直接映射org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加这句则默认为myisam引擎,myisam不能加索引
+    show-sql: true
+    open-in-view: true
+  #JSON
+  jackson:
+    #时区
+    time-zone: GMT+8
+    #时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+#日志
+logging:
+  level:
+    root: info
+    org.hibernate: info
+# Eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  #      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/,http://peer3:8763/eureka/ #Eureka高可用
+  #      defaultZone: http://user:password123@localhost:8761/eureka/ #2.1.0无法注册到Eureka中
+  #    healthcheck:
+  #      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+  instance:
+    prefer-ip-address: true #IP地址
+    #instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    instance-id: ${spring.application.name}:${spring.cloud.client:ipAddress}:${spring.application.instance_id:${server.port}}
+    #    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+    #    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）
+
+# 显示所有健康状态
+management:
+  endpoint:
+    health:
+      show-details: always

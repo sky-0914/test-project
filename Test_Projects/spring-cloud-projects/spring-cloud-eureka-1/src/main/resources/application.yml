@@ -1,0 +1,67 @@
+##SpringBoot 1.5 不赞成:安全自动配置不再是可定制的
+#security:
+#  basic:
+#    enabled: true
+#  user:
+#    name: user
+#    password: password123
+## SpringBoot 2.0配置
+#spring:
+#  security:
+#    user:
+#      name: user
+#      password: password123
+#Eureka单机
+server:
+  port: 8761
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka #应用的主机名称
+    #      defaultZone: http://user:password123@localhost:8761/eureka/
+    register-with-eureka: false                 #值为false意味着自身仅作为服务器，不作为客户端
+    fetch-registry: false                       #值为false意味着无需注册自身
+    #  server:
+    #    enable-self-preservation: false             # 设为false，关闭自我保护
+    #    eviction-interval-timer-in-ms: 4000         # 清理间隔（单位毫秒，默认是60*1000）
+    #    renewal-percent-threshold: 0.49             # 如果您只想在demo / dev环境中部署，您可以将eureka.server.renewalPercentThreshold设置为0.49，因此当您单独启动Eureka服务器时，阈值将为0。
+  server:
+    renewal-percent-threshold: 0.49 # 如果您只想在demo / dev环境中部署，您可以将eureka.server.renewalPercentThreshold设置为0.49，因此当您单独启动Eureka服务器时，阈值将为0。
+    enable-self-preservation: false # 中小规模下，自我保护模式坑比好处多，所以关闭它
+    ## eureka.server.renewalThresholdUpdateIntervalMs=120000  # 心跳阈值计算周期，如果开启自我保护模式，可以改一下这个配置
+    useReadOnlyResponseCache: false #禁用readOnlyCacheMap
+    eviction-interval-timerInMs:  5000  # 主动失效检测间隔,配置成5秒,清理间隔（单位毫秒，默认是60*1000）
+  instance:
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds:  5 # 心跳间隔，5秒
+    leaseExpirationDurationInSeconds: 10  # 没有心跳的淘汰时间，10秒
+    #    Eureka 的元数据
+    metadata-map:
+      zc-data: ZC de diannao  # 不会影响客户端
+      zone: ABD               # Eureka可以理解的元数据，可以影响客户端
+    appname: AAAAA            # 填坑 Swagger：配置和spring.application.name 冲突
+  datacenter: cloud           # 修改Eureka监控页面的System Status Data center
+  environment: uat            # 修改Eureka监控页面的System Status Environment
+
+
+#Eureka高可用 注意：不能使用localhost，要使用service-center-1之类的域名，通过host映射到127.0.0.1；
+#spring:
+#  application:
+#    name: eureka
+#server:
+#  port: 8761
+#eureka:
+#  instance:
+#    hostname: peer1  # 配置时确定主机名
+#  client:
+##    register-with-eureka: true
+##    fetch-registry: true
+#    service-url:
+#      defaultZone: http://peer2:8762/eureka/,http://peer3:8763/eureka/
+
+
+# 显示所有健康状态
+management:
+  endpoint.health.show-details: always
+  endpoints:
+    web.exposure.include: "*"

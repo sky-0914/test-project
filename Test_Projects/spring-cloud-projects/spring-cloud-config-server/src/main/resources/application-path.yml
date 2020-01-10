@@ -1,0 +1,13 @@
+# 搜索仓库路径
+server:
+  port: 8080
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/sky-0914/spring-cloud-config-one # 公用的配置文件
+          search-paths:
+          - foo # 路径（文件夹路径）
+          - bar # 路径（文件夹路径）
+          # search-paths: '{foo}' # 也可以用通配符

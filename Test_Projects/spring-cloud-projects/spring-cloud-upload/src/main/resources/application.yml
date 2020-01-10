@@ -1,0 +1,37 @@
+server:
+  port: 10003
+spring:
+  application:
+    name: upload #建议小写 服务名称Service-ID
+  #JSON
+  jackson:
+    #时区
+    time-zone: GMT+8
+    #时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  #  Spring boot版本2.0.0.M4
+  #  spring.http.multipart.max-file-size=30Mb
+  #  spring.http.multipart.max-request-size=30Mb
+  #  需要改成如下：
+  #  spring.servlet.multipart.max-file-size=30Mb
+  #  spring.servlet.multipart.max-request-size=30Mb
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1500MB
+# Eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  #      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/,http://peer3:8763/eureka/ #Eureka高可用
+  #      defaultZone: http://user:password123@localhost:8761/eureka/ #2.1.0无法注册到Eureka中
+  #    healthcheck:
+  #      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+  instance:
+    prefer-ip-address: true #IP地址
+    #instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    instance-id: ${spring.application.name}:${spring.cloud.client:ipAddress}:${spring.application.instance_id:${server.port}}
+    #    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+    #    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）

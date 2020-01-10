@@ -1,0 +1,21 @@
+# 通配符
+server:
+  port: 8080
+
+#  优先级，先去找对应的配置文件，然后去默认的配置文件里去找
+#  访问路径-映射规则如下：/ {应用} / {轮廓} [/ {标号}]
+#  /{application}-{profile}.yml
+#  /{label}/{application}-{profile}.yml
+#  /{application}-{profile}.properties
+#  /{label}/{application}-{profile}.properties
+# Git仓库地址
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/sky-0914/{application}-{profile} # 仓库名称用上通配符{}，这样就一个微服务对应一个Git仓库，保证微服务的名称和Git仓库的名称有一定的对应关系
+
+# http://localhost:8080/master/default：返回默认的配置文件属性
+# {横杠前面的}-{横杠后面的}.yml
+# http://localhost:8080/{横杠前面的}/{横杠后面的}/{git仓库的Repo}：会返回当前命中的配置文件属性和默认的配置文件的属性

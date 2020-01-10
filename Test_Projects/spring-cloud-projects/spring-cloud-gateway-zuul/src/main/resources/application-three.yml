@@ -1,0 +1,14 @@
+#  另一种方法是指定服务路由并为其配置Ribbon客户端serviceId（这样做需要在Ribbon中禁用Eureka支持）
+zuul:
+  routes:
+    users:
+      path: /s-1/** #给这个服务指定url
+      serviceId: server-1
+#禁用Ribbon
+ribbon:
+  eureka:
+    enabled: false
+# 配置这个服务 负载均衡的访问地址
+server-1: # 这边是service-id
+  ribbon:
+    listOfServers: http://localhost:10001,http://localhost:10002

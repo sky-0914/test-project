@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: admin-server
+  boot:
+    admin:
+      ui:
+        title: AAAAAAA
+#  boot:
+#    admin:
+#      routes:
+#        endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,hystrix.stream
+server:
+  port: 8080
+# Eureka 配置
+#eureka.client.register-with-eureka: false
+#eureka.client.fetch-registry: false
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    health-check-url-path: /actuator/health
+    prefer-ip-address: true #IP地址
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）
+
+# 显示所有健康状态
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+#logging:
+#  level:
+#    de.codecentric: debug

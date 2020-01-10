@@ -1,0 +1,12 @@
+spring:
+  #Database
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://zc.happyloves.cn:13306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: shuma
+    password: shuma123
+    test-while-idle: true
+    validation-query: SELECT 1 FROM DUAL
+    test-on-borrow: true
+    time-between-eviction-runs-millis: 300000
+    min-evictable-idle-time-millis: 1800000

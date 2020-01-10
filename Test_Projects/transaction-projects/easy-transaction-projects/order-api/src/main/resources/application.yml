@@ -1,0 +1,117 @@
+server:
+  port: 10001
+# Eureka 配置
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    service-url:
+      defaultZone: http://eureka.didispace.com/eureka/
+  #      defaultZone: http://localhost:8761/eureka/
+  instance:
+    health-check-url-path: /actuator/health
+    prefer-ip-address: true #IP地址
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）
+spring:
+  application:
+    name: order-api
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://192.168.1.38:3306/test_data?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+#    username: shuma
+#    password: shuma@123
+    url: jdbc:mysql://192.168.1.70:3306/t2_order?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: shuma
+    password: shuma@123
+    hikari:
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  #JPA
+  jpa:
+    database: MYSQL
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        #  Hibernate到5.1废除了
+        #  strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        #在进行领域映射时,首字母小写，大写字母变为下划线加小写
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        #不做修改，直接映射org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加这句则默认为myisam引擎,myisam不能加索引
+    show-sql: true
+    open-in-view: true
+  #JSON
+  jackson:
+    #时区
+    time-zone: GMT+8
+    #时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+easytrans:
+  master:
+    zk:
+      zooKeeperUrl: 192.168.1.70:2181
+  stringcodec:
+    zk:
+      zooKeeperUrl: ${easytrans.master.zk.zooKeeperUrl}
+  idgen:
+    trxId:
+      zkSnow:
+        zooKeeperUrl: ${easytrans.master.zk.zooKeeperUrl}
+  log:
+    database:
+      logCleanEnabled: true
+      logReservedDays: 14
+      logCleanTime: 01:22:00
+      druid:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.1.70:3306/t2_order?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+        username: shuma
+        password: shuma@123
+logging:
+  level:
+    com:
+      yiqiniu:
+        easytrans: DEBUG
+#  swagger.enabled=true
+#  swagger.title=spring-boot-starter-swagger
+#  swagger.description=Starter for swagger 2.x
+#  swagger.version=1.4.0.RELEASE
+#  swagger.license=Apache License, Version 2.0
+#  swagger.licenseUrl=https://www.apache.org/licenses/LICENSE-2.0.html
+#  swagger.termsOfServiceUrl=https://github.com/dyc87112/spring-boot-starter-swagger
+#  swagger.contact.name=didi
+#  swagger.contact.url=http://blog.didispace.com
+#  swagger.contact.email=dyc87112@qq.com
+#  swagger.base-package=com.didispace
+#  swagger.base-path=/**
+#  swagger.exclude-path=/error, /ops/**
+#
+#  swagger.globalOperationParameters[0].name=name one
+#  swagger.globalOperationParameters[0].description=some description one
+#  swagger.globalOperationParameters[0].modelRef=string
+#  swagger.globalOperationParameters[0].parameterType=header
+#  swagger.globalOperationParameters[0].required=true
+#  swagger.globalOperationParameters[1].name=name two
+#  swagger.globalOperationParameters[1].description=some description two
+#  swagger.globalOperationParameters[1].modelRef=string
+#  swagger.globalOperationParameters[1].parameterType=body
+#  swagger.globalOperationParameters[1].required=false
+#
+#  # 取消使用默认预定义的响应消息,并使用自定义响应消息
+#  swagger.apply-default-response-messages=false
+#  swagger.global-response-message.get[0].code=401
+#  swagger.global-response-message.get[0].message=401get
+#  swagger.global-response-message.get[1].code=500
+#  swagger.global-response-message.get[1].message=500get
+#  swagger.global-response-message.get[1].modelRef=ERROR
+#  swagger.global-response-message.post[0].code=500
+#  swagger.global-response-message.post[0].message=500post
+#  swagger.global-response-message.post[0].modelRef=ERROR

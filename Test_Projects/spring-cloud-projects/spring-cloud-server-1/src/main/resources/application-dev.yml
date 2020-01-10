@@ -1,0 +1,20 @@
+spring:
+  #Database
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.115:13306/zc_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: shuma
+    password: shuma123
+    test-while-idle: true
+    validation-query: SELECT 1 FROM DUAL
+    test-on-borrow: true
+    time-between-eviction-runs-millis: 300000
+    min-evictable-idle-time-millis: 1800000
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+  zipkin:
+    base-url: http://192.168.1.70:9411/ # 指定了 Zipkin 服务器的地址

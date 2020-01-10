@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: feign-1
+server:
+  port: 30002
+# Eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true #IP地址
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+#    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+#    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）
+
+#ribbon:
+#  eureka:
+#    enabled: false # 在Ribbon中禁用Eureka使用
+server-1: # 服务名称 Service-ID
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #  配置文件-自定义的Ribbon的负载均衡算法，优先级：配置（不会影响其他服务），硬编码（类得写在SpringBoot启动类包外，不然会影响其他服务），默认
+#    listOfServers: localhost:10001 #  如何使用Ribbon不使用Eureka
+
+#  Feign日志记录仅响应DEBUG级别。
+logging:
+  level:
+    com.spring.cloud.feignclient.Server1Client: DEBUG
+
+feign:
+  hystrix:
+    enabled: true #全局禁用或开启 feign默认hystrix是false不开启的
+  client:
+    config:
+      #将调用的微服务名称改成default就配置成全局的了
+      default:
+        loggerLevel: FULL
+
+
+# 显示所有健康状态
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

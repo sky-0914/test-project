@@ -1,0 +1,18 @@
+spring:
+  redis:
+    database: 1
+    host: 192.168.1.32
+    port: 6379
+    password:
+    timeout: 5000 #Springboot2.0 不能设置为0
+    lettuce:
+      pool:
+        max-active: 50
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+
+sys:
+  redis:
+    database_0: 0
+    database_1: 1

@@ -1,0 +1,19 @@
+#  模式匹配和多个存储库
+#    Spring Cloud Config还支持更复杂的需求，并在应用程序和配置文件名称上进行模式匹配。
+#  模式格式是{application}/{profile}带有通配符的逗号分隔的名称列表（请注意，可能需要引用以通配符开头的模式），如以下示例所示：
+server:
+  port: 8080
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/sky-0914/spring-cloud-config-one # 公用的配置文件
+          repos:
+            spring-cloud-tow: https://gitee.com/sky-0914/spring-cloud-config-tow
+            three:
+              pettern: three*/dev*,three*/test*
+              uri: https://gitee.com/sky-0914/spring-cloud-config-three
+#  如果{application}/{profile}与任何模式都不匹配，则使用下面定义的默认URI spring.cloud.config.server.git.uri。
+#  在上面的示例中，对于“简单”存储库，模式是simple/*（它只匹配simple在所有配置文件中命名的一个应用程序）。
+#  “本地”存储库匹配从local所有配置文件开始的所有应用程序名称（/*后缀自动添加到任何没有配置文件匹配器的模式）

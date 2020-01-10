@@ -1,0 +1,42 @@
+# SpringCloud建议在bootstrap.yml配置一些固定不常变动的配置属性，最好设置spring.application.name不管是在bootstrap.yml配置文件中还是在application.yml配置文件中
+# bootstrap.yml是启动上下文
+# SpringCloud加载配置文件的顺序：bootstrap.*里面的配置 ---> 连接Config Server，然后再加载远程配置 ---> 最后加载application.*里面的配置
+
+
+
+#spring:
+#  cloud:
+#    config:
+#      uri: http://localhost:8080
+#      profile: dev
+#      label: master # 当Config Server的后端存储仓库是Git的时候，默认是master
+#
+#  # 应用名称（虚拟主机名） 如果不配置应用名称，就会去默认（default）的配置文件
+#  application:
+#    name: foobar
+
+
+# Eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  #      defaultZone: http://user:password123@localhost:8761/eureka/ #2.1.0无法注册到Eureka中-需要加代码
+  #    healthcheck:
+  #      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+  instance:
+    prefer-ip-address: true #IP地址
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+#    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+#    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）
+spring:
+  application:
+    name: spring-cloud-config-one
+  cloud:
+    config:
+      discovery:
+        enabled: true # 标识Config Server的服务发现是允许的
+        service-id: config-server-1 # Config Server的虚拟主机名 spring.application.name
+#      这是Config Client 认证 Config Server端的用户名密码
+#      username:
+#      password:

@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: ribbon-1
+server:
+  port: 20002
+# Eureka 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true #IP地址
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  #    lease-expiration-duration-in-seconds: 30 # 续约更新时间间隔（默认30秒）
+  #    lease-renewal-interval-in-seconds: 10    # 续约到期时间（默认90秒）
+
+#ribbon:
+#  eureka:
+#    enabled: false # 在Ribbon中禁用Eureka使用
+#  Ribbon Eager加载-默认情况下Ribbon是懒加载的——首次请求Ribbon相关类才会初始化，这会导致首次请求过慢的问题，你可以配置饥饿加载，让Ribbon在应用启动时就初始化。
+#  eager-load:
+#    enabled: true
+#    # 多个用,分隔
+#    clients: server-1,server-2
+server-1: # 服务名称 Service-ID
+  ribbon:
+    # 属性配置方式【推荐】
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #  配置文件配置负载均衡算法-我这里使用的是自定义的Ribbon的负载均衡算法，优先级：配置（不会影响其他服务）>(大于) 硬编码（类得写在SpringBoot启动类包外，不然会影响其他服务），默认
+  #    listOfServers: localhost:10001 #  如何使用Ribbon不使用Eureka
+
+
+# 显示所有健康状态
+management:
+  endpoint:
+    health:
+      show-details: always
+  # Spring2.0特性全部在actuaton下面 management.endpoints.web.exposure.include这个是用来暴露 endpoints 的
+  #  springcloud 中使用 hystrix-dashboard 进行监控的时候启动报错”path”:”/actuator/hystrix.stream”,”status”:404,”error”:”Not Found”
+  endpoints:
+    web:
+      exposure:
+        #        include: ["hystrix-stream"] #但是actuator/health就无法访问了，所以还可以选择全部放开。
+        include: "*"

@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: feign-1
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.50.181:8848 # spring.application.cloud.nacos.discovery.server-addr 注册配置中心地址
+server:
+  port: 30001
+
+#ribbon:
+#  eureka:
+#    enabled: false # 在Ribbon中禁用Eureka使用
+server-1: # 服务名称 Service-ID
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #  配置文件-自定义的Ribbon的负载均衡算法，优先级：配置（不会影响其他服务），硬编码（类得写在SpringBoot启动类包外，不然会影响其他服务），默认
+#    listOfServers: localhost:10001 #  如何使用Ribbon不使用Eureka
+
+#  Feign日志记录仅响应DEBUG级别。
+logging:
+  level:
+    com.spring.cloud.feignclient.Server1Client: DEBUG
+
+# 去掉
+# feign.hystrix.enabled: true #全局禁用或开启 feign默认hystrix是false不开启的
+# 改为如下即可
+feign.sentinel.enabled: true
+

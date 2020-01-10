@@ -1,0 +1,7 @@
+#  这些简单的url-routes不会作为a执行HystrixCommand，也不会使用Ribbon对多个URL进行负载平衡。要实现这些目标，您可以使用serviceId静态服务器列表指定a ，如下所示：
+zuul:
+  routes:
+    users:
+      path: /server-1/**
+      #      http://{服务应用所对应的访问地址}，这相当于做了url转发
+      url: http://192.168.1.224:10001

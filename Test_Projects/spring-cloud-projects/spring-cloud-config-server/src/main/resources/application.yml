@@ -1,0 +1,9 @@
+#  统一的配置管理有Spring Cloud Config，
+#  百度的DisConf
+#  阿里的Diamond淘宝开源的一种分布式配置管理服务的实现
+#  携程的Apollo(阿波罗)是携程框架部门研发的配置管理平台,能够集中化管理应用不同环境、不同集群的配置,配置修改后能够实时推送到应用端。
+spring:
+  profiles:
+    active: wildcard_eureka
+
+# 为Config Server 加上安全认证，方式与Eureka安全认证，大致相同都是添加Security依赖

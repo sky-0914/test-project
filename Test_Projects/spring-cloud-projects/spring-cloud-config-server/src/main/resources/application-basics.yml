@@ -1,0 +1,26 @@
+# 基础使用 - 启动拉去配置文件 - 设置私有仓库用户名密码
+server:
+  port: 8080
+
+#  优先级，先去找对应的配置文件，然后去默认的配置文件里去找
+#  访问路径-映射规则如下：/ {应用} / {轮廓} [/ {标号}]
+#  /{application}-{profile}.yml
+#  /{label}/{application}-{profile}.yml
+#  /{application}-{profile}.properties
+#  /{label}/{application}-{profile}.properties
+# Git仓库地址
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/sky-0914/spring-cloud-config-one
+          # 设置私有仓库的用户名密码
+          # username: xxx
+          # password: xxx
+          # 是在启动的时候就去拉去配置文件，这样其他服务获取速度更快，默认false是在首次请求的时候才回去拉去配置文件
+          # clone-on-start: true #配置在git下是全局配置拉去，配置在某个仓库服务下就是局部配置
+
+# http://localhost:8080/master/default：返回默认的配置文件属性
+# {横杠前面的}-{横杠后面的}.yml
+# http://localhost:8080/{横杠前面的}/{横杠后面的}/{git仓库的Repo}：会返回当前命中的配置文件属性和默认的配置文件的属性

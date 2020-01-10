@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.50.181:8848 # spring.application.cloud.nacos.discovery.server-addr 注册配置中心地址
