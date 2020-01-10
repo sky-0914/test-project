@@ -1,5 +1,6 @@
 package com.happyloves.zc.service.account.api;
 
+import com.happyloves.zc.service.common.config.Test;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
     private final DiscoveryClient discoveryClient;
+
 
     @GetMapping("/getDiscoveryClient")
     public List<ServiceInstance> getDiscoveryClient() {
